@@ -1,0 +1,55 @@
+local ModWood = Instance.new("TextButton")
+
+ModWood.Name = "ModWood"
+ModWood.Parent = WoodFrame
+ModWood.BackgroundColor3 = Color3.fromRGB(128, 39, 211)
+ModWood.BorderSizePixel = 0
+ModWood.Position = UDim2.new(0.0199999996, 0, 0.675000012, 0)
+ModWood.Size = UDim2.new(0, 151, 0, 72)
+ModWood.Font = Enum.Font.SourceSans
+ModWood.Text = "Mod Wood"
+ModWood.TextColor3 = Color3.fromRGB(255, 255, 255)
+ModWood.TextScaled = true
+ModWood.TextSize = 14.000
+ModWood.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+ModWood.TextWrapped = true
+
+--Mod Wood
+
+ModWood.MouseButton1Click:Connect(function()
+	           for _, Log in pairs(workspace.LogModels:GetChildren()) do
+	        if Log.Name:sub(1, 6) == "Loose_" and Log:findFirstChild("Owner") then
+	            if Log.Owner.Value == game.Players.LocalPlayer then
+	                for i,v in pairs(Log:GetChildren()) do
+	                    if v.Name=="WoodSection" then
+	                        spawn(function()
+	                            for i=1,10 do
+	                                wait()
+	                                v.CFrame=CFrame.new(Vector3.new(315, -0.296, 85.791))*CFrame.Angles(math.rad(90),0,0)
+	                            end
+	                        end)
+	                    end
+	                end
+	                spawn(function()
+	                    for i=1,20 do
+	                        wait()
+	                        game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Log.WoodSection)
+	            game.ReplicatedStorage.Interaction.ClientRequestOwnership:FireServer(Log.WoodSection)
+	                    end
+	                end)
+	            end
+	        end
+	    end
+	wait(2.0)
+	    for _, Log in pairs(game.Workspace.LogModels:GetChildren()) do
+	        if Log.Name:sub(1, 6) == "Loose_" and Log:findFirstChild("Owner") then
+	            if Log.Owner.Value == game.Players.LocalPlayer then
+	                Log:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+	                for i=1,20 do
+	                    game.ReplicatedStorage.Interaction.ClientIsDragging:FireServer(Log.WoodSection)
+	                    game.ReplicatedStorage.Interaction.ClientRequestOwnership:FireServer(Log.WoodSection)
+	                end
+	            end
+	        end
+	    end
+end)
